@@ -1,19 +1,26 @@
-import Search from './components/Search'
-import Card from './components/Card'
-import searchWeather from './api'
-function  App() {
-//  searchWeather('mumbai')
-  const handleSubmit = (city) => {
-    searchWeather(city)
-  }
-  return (
+import Search from './components/Search';
+import Card from './components/Card';
+import searchWeather from './api';
+// import {BrowserRouter} from "react-router-dom"
+import {useState} from 'react'
+function App() {
+const [Temp , setTemp] = useState('')
+	 
+	const handleSubmit = async(city) => {
+		const result = await searchWeather(city);
+		setTemp(result)
+		console.log(result)
+		console.log(Temp);
+	};
+
+
+	return (
 		<div>
-			<h1  className="text-4xl   font-bold text-center my-6 bg-gray-200 ">The Weather Channel
-			</h1>
+			<h1 className="text-4xl  text-blue-600 font-bold text-center my-6  ">The Weather App</h1>
 
 			<Search onSubmit={handleSubmit} />
-      <div className="divider"></div>
-      <Card/>
+			<div className="divider"></div>
+			<Card temp ={Temp}  />
 		</div>
 	);
 }
